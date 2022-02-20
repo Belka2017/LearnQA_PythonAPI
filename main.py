@@ -5,7 +5,7 @@ payload = {"name": "User"}
 responce = requests.get("https://playground.learnqa.ru/api/hello")
 print(responce.text)
 
-try
+try:
     parsed_responce_txt = responce.json()
     print(parsed_responce_txt)
 except JSONDecodeError:
