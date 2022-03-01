@@ -1,6 +1,7 @@
 from requests import Response
 import json
 
+
 class Assertions:
     @staticmethod
     def assert_json_value_by_name(response: Response, name, excepted_value, error_message):
@@ -44,3 +45,7 @@ class Assertions:
 
         for name in names:
             assert name in response_as_dict, f"Response JSON doesn't have key '{name}'"
+
+    @staticmethod
+    def assert_text_error(response: Response, error_text):
+        assert response.content.decode("utf-8") == error_text, f"Response content is {response.content}"
