@@ -156,12 +156,12 @@ class TestUserEdit(BaseCase):
         token = self.get_header(response_login, "x-csrf-token")
 
         # EDIT
-        new_firstName = 't'
+        new_firstname = 't'
         response = MyRequests.put(
             f"/user/{user_id}",
             headers={"x-csrf-token": token},
             cookies={"auth_sid": auth_sid},
-            data={"firstName": new_firstName}
+            data={"firstName": new_firstname}
         )
 
         Assertions.assert_code_status(response, 400)
