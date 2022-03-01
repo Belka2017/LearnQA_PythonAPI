@@ -31,7 +31,7 @@ class MyRequests():
         if cookies is None:
             cookies = {}
 
-        Logger.add_requests(url, data, headers, cookies, method)
+        # Logger.add_requests(url, data, headers, cookies, method)
 
         if method == 'GET':
             response = requests.get(url, params=data, headers=headers, cookies=cookies)
@@ -44,6 +44,6 @@ class MyRequests():
         else:
             raise Exception(f"Bad HTTP method '{method}' was received.")
 
-        Logger.add_response(response)
+        # Logger.add_response(response)
 
         return response
