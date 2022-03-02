@@ -1,9 +1,12 @@
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
+import allure
 
 
+@allure.epic("Edit user cases")
 class TestUserEdit(BaseCase):
+    @allure.description("This test successfully edit by firstName user when just registered")
     def test_edit_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -52,6 +55,7 @@ class TestUserEdit(BaseCase):
             "Wrong name of the user after edit"
         )
 
+    @allure.description("Unsuccessful editing of the user because he is not authorized")
     def test_edit_user_without_auth(self):
         # REGISTER NEW USER
         data = self.prepare_registration_data()
@@ -68,6 +72,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(responce_edit, 400)
         Assertions.assert_text_error(responce_edit, "Auth token not supplied")
 
+    @allure.description("Unsuccessful editing of the user because incorrect email")
     def test_edit_email_without_ad(self):
         # REGISTER NEW USER
         data = self.prepare_registration_data()
@@ -98,6 +103,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(response, 400)
         Assertions.assert_text_error(response, "Invalid email format")
 
+    @allure.description("Unsuccessful editing by another user")
     def test_edit_other_user(self):
         # REGISTER USER_1
         data_register_user_1 = self.prepare_registration_data()
@@ -137,6 +143,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(response, 400)
         Assertions.assert_text_error(response, "No data to update")
 
+    @allure.description("Unsuccessful editing by user because new firstname is short")
     def test_edit_firstname_is_short(self):
         # REGISTER NEW USER
         data = self.prepare_registration_data()

@@ -1,9 +1,11 @@
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
+import allure
 
-
+@allure.epic("Get information by user")
 class TestUserGet(BaseCase):
+    @allure.description("Getting information about an unauthorized user")
     def test_get_user_details_not_auth(self):
         response = MyRequests.get("/user/2")
 
@@ -13,6 +15,7 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_not_key(response, "firstName")
         Assertions.assert_json_has_not_key(response, "lastName")
 
+    @allure.description("Getting information about an authorized user")
     def test_get_user_details_auth_as_same_user(self):
         data = {
             'email': 'vinkotov@example.com',
@@ -34,6 +37,7 @@ class TestUserGet(BaseCase):
         expected_fields = ["username", "email", "firstName", "lastName"]
         Assertions.assert_json_has_keys(response2, expected_fields)
 
+    @allure.description("Getting information about an other user")
     def test_get_userinfo_other_user(self):
         # REGISTER NEW USER_1
         data_1 = self.prepare_registration_data()
